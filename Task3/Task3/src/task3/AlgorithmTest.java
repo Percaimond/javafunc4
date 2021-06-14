@@ -15,7 +15,8 @@ public class AlgorithmTest {
     public void testSimpleTreeTransformation() {  
     	Node inputRoot = createInputTree();
     	Node expectedRoot = createOutputTree();
-    	Node submittedRoot = Algorithm.transformToBinary(inputRoot);
+    	//Node submittedRoot = Algorithm.transformToBinary(inputRoot);
+    	Node submittedRoot = Algorithm.transformToBinaryRecursively(inputRoot);
     	boolean result = areIdenticalTrees(submittedRoot, expectedRoot);
     	assertEquals("Not identical:", true, result);
     }
