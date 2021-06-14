@@ -94,8 +94,8 @@ public class AlgorithmTest {
     	Node root = new Node(null, 0);
     	
     	Node root_1 = new Node(root, 1);
-    	Node root_2 = new Node(root, 2)
-    			;	
+    	Node root_2 = new Node(root, 2);
+
     	List<Node> rootChildren = new ArrayList<Node>(
     		    Arrays.asList(root_1, root_2));
     	root.setChildren(rootChildren);
