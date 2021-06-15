@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class Algorithm {
 	static boolean  flag = false;
 	static int negativID = 0;
-
+	static List<Node> toVisitNodes = new ArrayList<>();
 	/**
 	* Convert a n-children tree in a max 2 children tree
 	*
@@ -65,43 +65,38 @@ public class Algorithm {
 	public static Node transformToBinaryRecursively(Node root){
 
 		//abzuarbeitende knoten
-		List<Node> toVisitNodes = new ArrayList<>();
+
 		if(!flag){
+
 			toVisitNodes.add(root);//hinzufügen root
 
 
 		}
 
-		if(!toVisitNodes.isEmpty()){//solange visitnodes nicht leer
+		if(toVisitNodes.size()!=0){//solange visitnodes nicht leer
 
 
 			Node currentNode = toVisitNodes.get(0);//jetzige node ist die erste node der visitnodes
 			List<Node> availableChildren = currentNode.getChildren();//alle children
 
-			if(currentNode.getChildren().size()==0){
-				toVisitNodes.remove(0);
+			/*if(currentNode.getChildren().size()==0){
+				//toVisitNodes.remove(0);
+			}*/
+			if(currentNode.hasChildren()){
+				toVisitNodes.addAll(currentNode.getChildren());
 			}
-			else if(currentNode.getChildren().size()==1){
-				toVisitNodes.add(currentNode.getFirst());
-				toVisitNodes.remove(0);
-			}
-			else if(currentNode.getChildren().size()==2){
-				toVisitNodes.add(currentNode.getFirst());
-				toVisitNodes.add(currentNode.getSecond());
-				toVisitNodes.remove(0);
-			}
-			else if(currentNode.getChildren().size()>2){
-				//negativID--;
+			if(currentNode.hasChildren() && currentNode.getChildren().size()>2){
+				negativID--;
 				Node firstChild = availableChildren.remove(0);
-				Node artificialNode = new Node(currentNode,-1);
+				Node artificialNode = new Node(currentNode,negativID);
 				currentNode.setChildren(new ArrayList<Node>(Arrays.asList(firstChild, artificialNode)));
 				artificialNode.setChildren(availableChildren);
 				toVisitNodes.add(firstChild);
 				toVisitNodes.add(artificialNode);
-				toVisitNodes.remove(0);
+				//toVisitNodes.remove(0);
 				flag = true;
 			}
-			transformToBinaryRecursively(toVisitNodes.get(0));
+			transformToBinaryRecursively(toVisitNodes.remove(0));
 		}
 		return root;
 	}
