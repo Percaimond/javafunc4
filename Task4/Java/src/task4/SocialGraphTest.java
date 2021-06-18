@@ -47,7 +47,9 @@ public class SocialGraphTest {
 		for (Person p : graph) {
 			studentComputedPeopleList.add(p);
 		}
-
+		//studentComputedPeopleList.add(allPeople[10]);
+		//studentComputedPeopleList.add(allPeople[8]);
+		//studentComputedPeopleList.add(allPeople[9]);
 		Collections.sort(studentComputedPeopleList);
 		System.out.println(studentComputedPeopleList);
 		assertEquals(allPeople.length, studentComputedPeopleList.size());

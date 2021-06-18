@@ -28,38 +28,31 @@ public class SocialGraph implements Iterable<Person> {
 		Iterator<Person> iterator = new Iterator<Person>() {
 			private Set<Person> visitedfriends = new HashSet<>();
 			private Queue<Person> allFriends = new LinkedList<>();
-			private SocialGraph graph = new SocialGraph();
-			//private List<Person> allPersons = new ArrayList<>();
-
+			Boolean flag = true;
 			@Override
 			public boolean hasNext() {
 
-				//schauen was es für knoten gibt mit centralPerson.getFriends() bzw person.getFriends()
-				//bloß knoten ausgeben die noch nicht ausgegeben wurden
-				//centralperson ist auch teil von der ausgabe
-
-				return !this.allFriends.isEmpty();
+					for (Person neighbor : centralPerson.getFriends()) {
+						if(flag){
+						allFriends.add(centralPerson);
+						}
+						setCentralPerson(neighbor);
+						if (!visitedfriends.contains(neighbor)) {
+							allFriends.add(neighbor);
+							visitedfriends.add(neighbor);
+							setCentralPerson(allFriends.peek());
+							flag = false;
+					}
+			}
+				return !allFriends.isEmpty();
 			}
 
 			@Override
 			public Person next() {
-
-				//habe die ganze arbeit in hasNext gemacht und das ergebnis in einer lokalen variable gespeichert
 				if(!hasNext())
 					throw new NoSuchElementException();
-				//removes from front of queue
-				//queue.add(this.graph.centralPerson);
-				Person next = allFriends.remove();
-				//allPersons.add(next);
-				for (Person neighbor : next.getFriends()) {
-					if (!this.visitedfriends.contains(neighbor)) {
-						this.allFriends.add(neighbor);
-						this.visitedfriends.add(neighbor);
-						return next;
 
-					}
-				}
-				return next;
+				return allFriends.remove();
 			}
 
 			@Override
