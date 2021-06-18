@@ -36,14 +36,15 @@ public class SocialGraph implements Iterable<Person> {
 						if(flag){
 						allFriends.add(centralPerson);
 						}
-						setCentralPerson(neighbor);
+						//setCentralPerson(neighbor);
 						if (!visitedfriends.contains(neighbor)) {
 							allFriends.add(neighbor);
 							visitedfriends.add(neighbor);
-							setCentralPerson(allFriends.peek());
+
 							flag = false;
 					}
 			}
+					setCentralPerson(allFriends.peek());
 				return !allFriends.isEmpty();
 			}
 
